@@ -47,7 +47,6 @@ final class ContentViewModel: ObservableObject {
         cancellable = service.localSearchPublisher.sink { mapItems in
             self.viewData = mapItems.map({ LocalSearchViewData(mapItem: $0) })
         }
-        
     }
     
     private func searchForCity(text: String) {

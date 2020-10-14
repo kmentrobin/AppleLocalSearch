@@ -11,8 +11,6 @@ import Combine
 import MapKit
 
 final class LocalSearchService {
-    private let completer = MKLocalSearchCompleter()
-    private var searchText = ""
     let localSearchPublisher = PassthroughSubject<[MKMapItem], Never>()
     private let center: CLLocationCoordinate2D
     private let radius: CLLocationDistance
@@ -21,11 +19,6 @@ final class LocalSearchService {
          radius: CLLocationDistance = 350_000) {
         self.center = center
         self.radius = radius      
-    }
-
-    public func addressCompleter(searchText: String) {
-        completer.queryFragment = searchText
-        self.searchText = searchText
     }
     
     public func searchCities(searchText: String) {
@@ -50,6 +43,9 @@ final class LocalSearchService {
         search.start { [weak self](response, _) in
             guard let response = response else {
                 return
+            }
+            for item in response.mapItems {
+                print("phone: ",item.phoneNumber)
             }
 
             self?.localSearchPublisher.send(response.mapItems)
