@@ -44,9 +44,6 @@ final class LocalSearchService {
             guard let response = response else {
                 return
             }
-            for item in response.mapItems {
-                print("phone: ",item.phoneNumber)
-            }
 
             self?.localSearchPublisher.send(response.mapItems)
         }
