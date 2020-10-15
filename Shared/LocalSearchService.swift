@@ -22,7 +22,7 @@ final class LocalSearchService {
     }
     
     public func searchCities(searchText: String) {
-        request(resultType: .address ,searchText: searchText)
+        request(resultType: .address, searchText: searchText)
     }
     
     public func searchPointOfInterests(searchText: String) {
