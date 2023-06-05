@@ -22,16 +22,20 @@ struct LocalSearchViewData: Identifiable {
 
 final class ContentViewModel: ObservableObject {
     private var cancellable: AnyCancellable?
-
+    
     @Published var cityText = "" {
         didSet {
-            searchForCity(text: cityText)
+            if oldValue != cityText {
+                searchForCity(text: cityText)
+            }
         }
     }
     
     @Published var poiText = "" {
         didSet {
-            searchForPOI(text: poiText)
+            if oldValue != poiText {
+                poiText(text: poiText)
+            }
         }
     }
     
@@ -40,8 +44,7 @@ final class ContentViewModel: ObservableObject {
     var service: LocalSearchService
     
     init() {
-//        New York
-        let center = CLLocationCoordinate2D(latitude: 40.730610, longitude: -73.935242)
+        let center = CLLocationCoordinate2D(latitude: 40.730610, longitude: -73.935242)             // New York
         service = LocalSearchService(in: center)
         
         cancellable = service.localSearchPublisher.sink { mapItems in
